@@ -58,48 +58,13 @@ void setup() {
 }
 
 void draw() {
-  for (Node n : nodeField) {
+  for (Node n : nodeField) { // update noise value for each cell
     n.val = noise((n.gridLoc.x  + frameCount/10) * .1, (n.gridLoc.y - frameCount/30) * .1);
   }
 
   for (int i=0; i < nodeField.length; i++) {
     Node cn = nodeField[i];
-
-    // All this is probably better put into a render() method inside Node
-    pushMatrix();
-    translate(cn.loc.x + (cellW/2), cn.loc.y + (cellH/2));
-    if (renderMode == 0) {
-      if (rotationMode == 0) {
-        if (cn.val < 0.25) {
-          cn.targRot = 0;
-        }
-        else if (cn.val > 0.25 && cn.val < 0.5) {
-          cn.targRot = PI/2;
-        }
-        else if (cn.val > 0.5 && cn.val < 0.75) {
-          cn.targRot = PI;
-        }
-        else if (cn.val > 0.75) {
-          cn.targRot = (PI/2)+PI;
-        }
-        cn.update();
-        rotate(cn.currRot);
-      }
-      else if (rotationMode == 1) {
-        rotate(cn.val * TWO_PI);
-      }
-
-      image(cn.tile, -cellW/2, -cellH/2, cellW, cellH);
-    } 
-    else {
-      fill(cn.val*255);
-      noStroke();
-      rect(-cellW/2, -cellH/2, cellW, cellH);
-      fill(255);
-      String pnVal = "" + nf(cn.val, 1, 2);
-      text(pnVal, -cellW/2, -cellH/2 + 18);
-    }
-    popMatrix();
+    cn.render();
   }
 
 }
