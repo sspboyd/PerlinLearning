@@ -32,12 +32,12 @@ void setup() {
 
   // Choose a grid size/dimension // 
   // Large
-  xRes = 21;
-  yRes = 14;
+  // xRes = 21;
+  // yRes = 14;
 
   // Medium
-  // xRes = 30;
-  // yRes = 20;
+  xRes = 30;
+  yRes = 20;
   
   // Tiny
   // xRes = 60;
@@ -57,6 +57,7 @@ void setup() {
   sketch_init();
 }
 
+
 void draw() {
   for (Node n : nodeField) { // update noise value for each cell
     n.val = noise((n.gridLoc.x  + frameCount/10) * .1, (n.gridLoc.y - frameCount/30) * .1);
@@ -66,8 +67,8 @@ void draw() {
     Node cn = nodeField[i];
     cn.render();
   }
-
 }
+
 
 void sketch_init() { // called first during setup and then evertime a new image is loaded (via mouseReleased)
   if (currImgIndex>imageNames.length-2) {
@@ -76,7 +77,8 @@ void sketch_init() { // called first during setup and then evertime a new image 
   else {
     currImgIndex = currImgIndex + 1;
   }
-  println("currImgIndex: " + currImgIndex);
+  // println("currImgIndex: " + currImgIndex);
+  
   src = loadImage(imageNames[currImgIndex]);
 
   imgTileW = src.width/xRes;
@@ -100,12 +102,6 @@ void sketch_init() { // called first during setup and then evertime a new image 
 }
 
 
-
-
-
-
-
-
 void keyPressed() {
   if (key == 'S') screenCap();
 
@@ -119,6 +115,7 @@ void keyPressed() {
   }
 }
 
+
 void screenCap() {
   // save functionality in here
   String outputDir = "out/";
@@ -130,9 +127,11 @@ void screenCap() {
   println("Screen shot taken and saved to " + fileName);
 }
 
+
 void mousePressed() {
   sketch_init();
 }
+
 
 void mouseMoved() {
   for (Node n : nodeField) {

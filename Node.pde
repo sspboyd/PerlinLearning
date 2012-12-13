@@ -1,4 +1,5 @@
 class Node {
+  // class variables
   PVector loc = new PVector(); // using PVector to keep code cleaner
   PVector gridLoc = new PVector(); // could have just used separate x & y vars
   PImage tile; // section of original image to be applied to this Node/Cell/Tile (really should be consistent with this name)
@@ -7,14 +8,20 @@ class Node {
   float currRot; // current Rotation - this is the angle that is rendered
   float targRot; // target Rotation - this is the angle that the tile is moving towards
 
-  void update() {
+  // Note, there's no constructor here eg Node(){...}
+  // It is such a simple sketch it was easier to initialize the variables in the main .pde file
+
+
+  void update() { // just updating the current rotation value
     currRot += ((targRot-currRot) * .05); // change multiplier to speed up or slow down transitions to new targRot
   }
 
+ 
   void render(){
-        // All this is probably better put into a render() method inside Node
     pushMatrix();
+
     translate(loc.x + (cellW/2), loc.y + (cellH/2));
+
     if (renderMode == 0) {
       if (rotationMode == 0) {
         if (val < 0.25) {
@@ -46,7 +53,7 @@ class Node {
       String pnVal = "" + nf(val, 1, 2);
       text(pnVal, -cellW/2, -cellH/2 + 18);
     }
-    popMatrix();
 
+    popMatrix();
   }
 }
